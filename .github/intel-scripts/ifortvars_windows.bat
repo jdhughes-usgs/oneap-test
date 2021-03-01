@@ -17,9 +17,7 @@ for /f "tokens=* usebackq" %%f in (`dir /b "C:\Program Files (x86)\Intel\oneAPI\
 
 cd .github/intel-scripts
 ifort hello.f90 /exe:hello.ifort.exe
-dir /b
 hello.ifort.exe
 
-icc hello.cpp /exe:hello.icc.exe
-dir /b
+icl hello.cpp /exe:hello.icc.exe
 hello.icc.exe

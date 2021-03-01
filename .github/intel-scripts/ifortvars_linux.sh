@@ -11,9 +11,7 @@ source /opt/intel/oneapi/compiler/"$LATEST_VERSION"/env/vars.sh
 
 cd .github/intel-scripts
 ifort hello.f90 -o hello.ifort.out
-ls
 ./hello.ifort.out
 
 icc hello.cpp -o hello.icc.out
-ls
 ./hello.icc.out
