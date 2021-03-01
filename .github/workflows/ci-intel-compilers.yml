@@ -48,7 +48,7 @@ jobs:
     - name: install intel compilers on windows
       if: runner.os == 'Windows' && steps.cache-install-windows.outputs.cache-hit != 'true'
       run: |
-        .github/intel-scripts/install_windows.bat $WINDOWS_HPCKIT_URL $WINDOWS_CPP_COMPONENTS $WINDOWS_FORTRAN_COMPONENTS
+        .github/intel-scripts/install_windows.bat $WINDOWS_HPCKIT_URL $WINDOWS_CPP_COMPONENTS:$WINDOWS_FORTRAN_COMPONENTS
 
     - name: activate intel environmental variables on windows
       if: runner.os == 'Windows'
@@ -67,7 +67,7 @@ jobs:
     - name: install intel compilers on linux
       if: runner.os == 'Linux' && steps.cache-install-linux.outputs.cache-hit != 'true'
       run: |
-        .github/intel-scripts/install_linux.sh $LINUX_HPCKIT_URL $LINUX_CPP_COMPONENTS_WEB $LINUX_FORTRAN_COMPONENTS_WEB
+        .github/intel-scripts/install_linux.sh $LINUX_HPCKIT_URL $LINUX_CPP_COMPONENTS_WEB:$LINUX_FORTRAN_COMPONENTS_WEB
 
     - name: activate intel environmental variables on linux
       if: runner.os == 'Linux'
@@ -85,7 +85,7 @@ jobs:
     - name: install intel compilers on macos
       if: runner.os == 'macOS' && steps.cache-install-macos.outputs.cache-hit != 'true'
       run: |
-        .github/intel-scripts/install_macos.sh $MACOS_HPCKIT_URL $MACOS_CPP_COMPONENTS $MACOS_FORTRAN_COMPONENTS
+        .github/intel-scripts/install_macos.sh $MACOS_HPCKIT_URL $MACOS_CPP_COMPONENTS:$MACOS_FORTRAN_COMPONENTS
 
     - name: activate intel oneapi environmental variables on macos
       if: runner.os == 'macOS'
