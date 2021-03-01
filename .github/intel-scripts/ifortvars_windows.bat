@@ -19,5 +19,5 @@ cd .github/intel-scripts
 ifort hello.f90 /exe:hello.ifort.exe
 hello.ifort.exe
 
-icl hello.cpp /exe:hello.icc.exe
-hello.icc.exe
+icl hello.cpp
+hello.exe

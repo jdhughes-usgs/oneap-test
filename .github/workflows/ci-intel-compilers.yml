@@ -21,7 +21,6 @@ env:
   WINDOWS_CPP_COMPONENTS: intel.oneapi.win.cpp-compiler
   LINUX_CPP_COMPONENTS_WEB: intel.oneapi.lin.dpcpp-cpp-compiler-pro
   MACOS_CPP_COMPONENTS: intel.oneapi.mac.cpp-compiler
-  CACHE_NUMBER: 0
 
 jobs:
   test:
@@ -44,7 +43,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: C:\Program Files (x86)\Intel\oneAPI\compiler
-        key: install-${{ env.WINDOWS_HPCKIT_URL }}-${{ env.CACHE_NUMBER }}-compiler-${{ hashFiles('**/.github/intel-scripts/cache_exclude_windows.sh') }}
+        key: install-${{ env.WINDOWS_HPCKIT_URL }}-${{ env.WINDOWS_CPP_COMPONENTS }}-${{ env.WINDOWS_FORTRAN_COMPONENTS }}-compiler-${{ hashFiles('**/.github/intel-scripts/cache_exclude_windows.sh') }}
 
     - name: install intel compilers on windows
       if: runner.os == 'Windows' && steps.cache-install-windows.outputs.cache-hit != 'true'
@@ -63,7 +62,7 @@ jobs:
       with:
         path: |
           /opt/intel/oneapi/compiler
-        key: install-${{ env.LINUX_HPCKIT_URL }}-${{ env.CACHE_NUMBER }}-compiler-${{ hashFiles('**/.github/intel-scripts/cache_exclude_linux.sh') }}
+        key: install-${{ env.LINUX_HPCKIT_URL }}-${{ env.LINUX_CPP_COMPONENTS_WEB }}-${{ env.LINUX_FORTRAN_COMPONENTS_WEB }}-compiler-${{ hashFiles('**/.github/intel-scripts/cache_exclude_linux.sh') }}
 
     - name: install intel compilers on linux
       if: runner.os == 'Linux' && steps.cache-install-linux.outputs.cache-hit != 'true'
@@ -81,7 +80,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: /opt/intel/oneapi
-        key: install-${{ env.MACOS_HPCKIT_URL }}-${{ env.CACHE_NUMBER }}
+        key: install-${{ env.MACOS_HPCKIT_URL }}--${{ env.MACOS_CPP_COMPONENTS }}-${{ env.MACOS_FORTRAN_COMPONENTS }}
 
     - name: install intel compilers on macos
       if: runner.os == 'macOS' && steps.cache-install-macos.outputs.cache-hit != 'true'
