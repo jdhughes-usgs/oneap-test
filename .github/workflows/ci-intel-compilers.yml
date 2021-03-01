@@ -6,17 +6,10 @@
 #
 # SPDX-License-Identifier: MIT
 
-name: MODFLOW 6 CI with ifort
+name: Install and test use of intel compilers
 
 on:
   push:
-    branches:
-      - master
-      - develop
-  pull_request:
-    branches:
-      - master
-      - develop
 
 env:
   WINDOWS_HPCKIT_URL: https://registrationcenter-download.intel.com/akdlm/irc_nas/17392/w_HPCKit_p_2021.1.0.2682_offline.exe
@@ -52,18 +45,18 @@ jobs:
         path: C:\Program Files (x86)\Intel\oneAPI\compiler
         key: install-${{ env.WINDOWS_HPCKIT_URL }}-${{ env.WINDOWS_CPP_COMPONENTS }}-compiler-${{ hashFiles('**/.github/intel-scripts/cache_exclude_windows.sh') }}
 
-    - name: install ifort on windows
+    - name: install intel compilers on windows
       if: runner.os == 'Windows' && steps.cache-install-windows.outputs.cache-hit != 'true'
       run: |
         .github/intel-scripts/install_windows.bat $WINDOWS_HPCKIT_URL $WINDOWS_CPP_COMPONENTS
         .github/intel-scripts/install_windows.bat $WINDOWS_HPCKIT_URL $WINDOWS_FORTRAN_COMPONENTS
 
-    - name: activate ifort environmental variables on windows
+    - name: activate intel environmental variables on windows
       if: runner.os == 'Windows'
       run: |
         .github/intel-scripts/ifortvars_windows.bat
 
-    - name: cache install ifort on linux
+    - name: cache install intel compilers on linux
       if: runner.os == 'Linux'
       id: cache-install-linux
       uses: actions/cache@v2
@@ -72,13 +65,13 @@ jobs:
           /opt/intel/oneapi/compiler
         key: install-${{ env.LINUX_HPCKIT_URL }}-${{ env.LINUX_CPP_COMPONENTS_WEB }}-compiler-${{ hashFiles('**/.github/intel-scripts/cache_exclude_linux.sh') }}
 
-    - name: install ifort on linux
+    - name: install intel compilers on linux
       if: runner.os == 'Linux' && steps.cache-install-linux.outputs.cache-hit != 'true'
       run: |
         .github/intel-scripts/install_linux.sh $LINUX_HPCKIT_URL $LINUX_CPP_COMPONENTS_WEB
         .github/intel-scripts/install_linux.sh $LINUX_HPCKIT_URL $LINUX_FORTRAN_COMPONENTS_WEB
 
-    - name: activate inte; environmental variables on linux
+    - name: activate intel environmental variables on linux
       if: runner.os == 'Linux'
       run: |
         .github/intel-scripts/ifortvars_linux.sh
@@ -91,7 +84,7 @@ jobs:
         path: /opt/intel/oneapi
         key: install-${{ env.MACOS_HPCKIT_URL }}-${{ env.MACOS_CPP_COMPONENTS }}
 
-    - name: install ifort on macos
+    - name: install intel compilers on macos
       if: runner.os == 'macOS' && steps.cache-install-macos.outputs.cache-hit != 'true'
       run: |
         .github/intel-scripts/install_macos.sh $MACOS_HPCKIT_URL $MACOS_CPP_COMPONENTS
